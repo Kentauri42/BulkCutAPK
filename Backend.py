@@ -150,12 +150,14 @@ class ExerciseScreen(Screen):
 class WorkoutApp(App):
     def build(self):
         self.store = JsonStore("workout_data.json")
+        Builder.load_string(KV)  # Load KV string rules first
+
         self.sm = ScreenManager()
         self.sm.app = self
         self.sm.add_widget(MainScreen(name='main'))
         self.sm.add_widget(ExerciseScreen(name='exercise'))
 
-        return Builder.load_string(KV)
+        return self.sm 
 
 
 if __name__ == '__main__':
