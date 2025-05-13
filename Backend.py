@@ -1,70 +1,162 @@
 from kivy.app import App
-from kivy.uix.gridlayout import GridLayout
-from kivy.properties import NumericProperty
-from kivy.properties import StringProperty
+from kivy.lang import Builder
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.storage.jsonstore import JsonStore
+from datetime import datetime, timedelta
+
+KV = '''
+<MainScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(20)
+
+        Label:
+            text: "Workout App"
+            font_size: '32sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Label:
+            text: "Select an exercise:"
+            font_size: '20sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        GridLayout:
+            cols: 3
+            spacing: dp(20)
+            size_hint_y: None
+            height: dp(150)
+
+            Button:
+                text: "Leg"
+                font_size: '18sp'
+                on_release: root.start_exercise("Leg")
+
+            Button:
+                text: "Arm"
+                font_size: '18sp'
+                on_release: root.start_exercise("Arm")
+
+            Button:
+                text: "Abs"
+                font_size: '18sp'
+                on_release: root.start_exercise("Abs")
+
+        Label:
+            id: streak_label
+            text: root.streak_text
+            font_size: '16sp'
+            size_hint_y: None
+            height: self.texture_size[1]
 
 
-class CalculatorConverter(GridLayout):
-    """
-    Class CalculatorConverter
-    =========================
-    Kelas ini yang akan menjadi layout utama pada Applikasi. diantara layout yang tersedia
-    kita akan menggunakan GridLayout karena mudah diatur seperti layouting table ada row dan
-    kolom. juga disini ada default variable dan variable initial pada Class Layout kita.
-    """
+<ExerciseScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(20)
 
-    # variable default dan input variable dari TextInput Kivy.
-    input_type      = 2
-    input_value     = NumericProperty()
+        Label:
+            id: exercise_label
+            text: ""
+            font_size: '28sp'
 
-    # hasil output dari konverter, tetapi di deklarasi sebagai tipe String
-    binary_result  = StringProperty()
-    octal_result   = StringProperty()
-    decimal_result = StringProperty()
-    hexa_result    = StringProperty()
+        Button:
+            text: "Complete Exercise"
+            size_hint_y: None
+            height: dp(50)
+            on_release: root.complete_exercise()
 
-    def converting(self, value):
-        """
-        def converting
-        ==============
-        fungsi ini akan merubah input dari user menjadi keluaran yang telah di konversi
-        sesuai dengan tipe konversi input, beberapa diantaranya me-representasikan
-        - 2 = biner, 8 = oktal, 10 = desimal, 16 = hexadesimal bilangan ini diambil
-        dari jumlah byte yang tertera pada input lalu tiap fungsi ini ke-trigger
-        maka akan mengkonversi hasil.
-        ==============
-        :param value:
-        :return:
-        """
-        if self.input_type in [2, 8, 10, 16]:
-            try:
-                d = int(str(value), self.input_type)
+        Button:
+            text: "Back to Home"
+            size_hint_y: None
+            height: dp(50)
+            on_release: app.root.current = 'main'
+'''
 
-            except ValueError:
-                # Kalo valuenya gak sesuai maka di biarin aja
-                pass
+class MainScreen(Screen):
+    streak_text = "Loading streak..."
 
-            else:
-                # Yang paling penting itu kita ubah dulu ke desimal
-                # sisanya kita bisa format dengan python.
-                self.decimal_result = str(d)
-                self.binary_result  = '{:0b}'.format(d)
-                self.octal_result   = '{:0o}'.format(d)
-                self.hexa_result    = '{:0x}'.format(d)
+    def on_enter(self):
+        # Update streak text when entering the main screen
+        self.update_streak()
 
-                # Dump result ke console
-                print("===============================================")
-                print("BINER   = %s" % self.binary_result)
-                print("DESIMAL = %s" % self.decimal_result)
-                print("OKTAL   = %s" % self.octal_result)
-                print("HEXA    = %s" % self.hexa_result)
-                print("===============================================")
+    def start_exercise(self, exercise_name):
+        exercise_screen = self.manager.get_screen('exercise')
+        exercise_screen.exercise_name = exercise_name
+        exercise_screen.ids.exercise_label.text = f"Exercise: {exercise_name}"
+        self.manager.current = 'exercise'
+
+    def update_streak(self):
+        store = self.manager.app.store
+        dates = store.get('workout').get('dates', []) if store.exists('workout') else []
+        streak_count = self.calculate_streak(dates)
+        self.streak_text = f"Current workout streak: {streak_count} day(s)"
+
+        # Also update the UI label if exists
+        if hasattr(self, 'ids') and 'streak_label' in self.ids:
+            self.ids.streak_label.text = self.streak_text
+
+    def calculate_streak(self, dates):
+        if not dates:
+            return 0
+        # Convert stored string dates back to date objects for processing
+        date_objects = sorted([datetime.strptime(d, "%Y-%m-%d").date() for d in dates], reverse=True)
+        today = datetime.today().date()
+
+        streak = 0
+        current_date = today
+
+        for d in date_objects:
+            if d == current_date:
+                streak += 1
+                current_date -= timedelta(days=1)
+            elif d < current_date:
+                # If a date is before the expected current_date, streak breaks
+                if (current_date - d).days > 1:
+                    break
+                else:
+                    current_date -= timedelta(days=1)
+                    if d == current_date:
+                        streak += 1
+                        current_date -= timedelta(days=1)
+                    else:
+                        break
+        return streak
 
 
-class ConverterApp(App):
+class ExerciseScreen(Screen):
+    exercise_name = ""
+
+    def complete_exercise(self):
+        store = self.manager.app.store
+        today_str = datetime.today().strftime("%Y-%m-%d")
+
+        if not store.exists('workout'):
+            store.put('workout', dates=[today_str])
+        else:
+            dates = store.get('workout').get('dates', [])
+            if today_str not in dates:
+                dates.append(today_str)
+                store.put('workout', dates=dates)
+
+        # After marking exercise complete, go back to main screen and update streak
+        self.manager.current = 'main'
+        self.manager.get_screen('main').update_streak()
+
+
+class WorkoutApp(App):
     def build(self):
-        return CalculatorConverter()
+        self.store = JsonStore("workout_data.json")
+        self.sm = ScreenManager()
+        self.sm.app = self
+        self.sm.add_widget(MainScreen(name='main'))
+        self.sm.add_widget(ExerciseScreen(name='exercise'))
+
+        return Builder.load_string(KV)
 
 
 if __name__ == '__main__':
-    ConverterApp().run()
+    WorkoutApp().run()

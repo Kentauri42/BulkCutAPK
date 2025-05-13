@@ -1,0 +1,71 @@
+#:kivy 2.1.0
+
+<MainScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(20)
+
+        Label:
+            text: "Workout App"
+            font_size: '32sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Label:
+            text: "Select an exercise:"
+            font_size: '20sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        GridLayout:
+            cols: 3
+            spacing: dp(20)
+            size_hint_y: None
+            height: dp(150)
+
+            Button:
+                text: "Leg"
+                font_size: '18sp'
+                on_release: root.start_exercise("Leg")
+
+            Button:
+                text: "Arm"
+                font_size: '18sp'
+                on_release: root.start_exercise("Arm")
+
+            Button:
+                text: "Abs"
+                font_size: '18sp'
+                on_release: root.start_exercise("Abs")
+
+        Label:
+            id: streak_label
+            text: root.streak_text
+            font_size: '16sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+
+<ExerciseScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(20)
+        spacing: dp(20)
+
+        Label:
+            id: exercise_label
+            text: ""
+            font_size: '28sp'
+
+        Button:
+            text: "Complete Exercise"
+            size_hint_y: None
+            height: dp(50)
+            on_release: root.complete_exercise()
+
+        Button:
+            text: "Back to Home"
+            size_hint_y: None
+            height: dp(50)
+            on_release: app.root.current = 'main'
