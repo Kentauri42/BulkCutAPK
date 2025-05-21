@@ -17,12 +17,6 @@ KV = '''
 
 <SignInScreen>:
     BoxLayout:
-        canvas.before:
-            Color:
-                rgba: 1, 1, 1, 1  # Putih
-            Rectangle:
-                pos: self.pos
-                size: self.size
         orientation: 'vertical'
         padding: dp(24)
         spacing: dp(16)
@@ -31,7 +25,6 @@ KV = '''
         Label:
             text: "Sign In"
             font_size: '28sp'
-            color: 0, 0, 0, 1
             size_hint_y: None
             height: self.texture_size[1]
 
@@ -53,7 +46,7 @@ KV = '''
         Label:
             id: message_label
             text: ''
-            color: 1, 0, 0, 1
+            color: 1,0,0,1
             font_size: '14sp'
             size_hint_y: None
             height: self.texture_size[1]
@@ -63,7 +56,7 @@ KV = '''
             size_hint_y: None
             height: dp(48)
             background_color: 0.2, 0.6, 0.86, 1
-            color: 1, 1, 1, 1
+            color: 1,1,1,1
             on_release: root.sign_in()
 
         Widget:
@@ -76,25 +69,19 @@ KV = '''
             Label:
                 text: "Don't have an account?"
                 font_size: '14sp'
-                color: 0, 0, 0, 1
                 size_hint_y: None
                 height: self.texture_size[1]
             Button:
                 text: "Sign Up"
                 background_color: 0.18, 0.8, 0.44, 1
-                color: 1, 1, 1, 1
+                color: 1,1,1,1
                 size_hint_x: None
                 width: dp(80)
                 on_release: app.root.current = 'signup'
 
+
 <SignUpScreen>:
     BoxLayout:
-        canvas.before:
-            Color:
-                rgba: 1, 1, 1, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
         orientation: 'vertical'
         padding: dp(24)
         spacing: dp(16)
@@ -103,7 +90,6 @@ KV = '''
         Label:
             text: "Sign Up"
             font_size: '28sp'
-            color: 0, 0, 0, 1
             size_hint_y: None
             height: self.texture_size[1]
 
@@ -133,7 +119,7 @@ KV = '''
         Label:
             id: message_label
             text: ''
-            color: 1, 0, 0, 1
+            color: 1,0,0,1
             font_size: '14sp'
             size_hint_y: None
             height: self.texture_size[1]
@@ -143,7 +129,7 @@ KV = '''
             size_hint_y: None
             height: dp(48)
             background_color: 0.18, 0.8, 0.44, 1
-            color: 1, 1, 1, 1
+            color: 1,1,1,1
             on_release: root.sign_up()
 
         Widget:
@@ -156,85 +142,19 @@ KV = '''
             Label:
                 text: "Already have an account?"
                 font_size: '14sp'
-                color: 0, 0, 0, 1
                 size_hint_y: None
                 height: self.texture_size[1]
             Button:
                 text: "Sign In"
                 background_color: 0.2, 0.6, 0.86, 1
-                color: 1, 1, 1, 1
+                color: 1,1,1,1
                 size_hint_x: None
                 width: dp(80)
                 on_release: app.root.current = 'signin'
 
-<UserInfoScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        spacing: dp(16)
-        padding: dp(24)
-        canvas.before:
-            Color:
-                rgba: 1, 1, 1, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-
-        Label:
-            text: "Your Body Info"
-            font_size: '28sp'
-            color: 0, 0, 0, 1
-            size_hint_y: None
-            height: self.texture_size[1]
-
-        TextInput:
-            id: weight_input
-            hint_text: "Enter your weight (kg)"
-            input_filter: 'float'
-            multiline: False
-            size_hint_y: None
-            height: dp(48)
-
-        TextInput:
-            id: height_input
-            hint_text: "Enter your height (cm)"
-            input_filter: 'float'
-            multiline: False
-            size_hint_y: None
-            height: dp(48)
-
-        Label:
-            id: info_message
-            text: ""
-            font_size: '14sp'
-            color: 1, 0, 0, 1
-            size_hint_y: None
-            height: self.texture_size[1]
-
-        Button:
-            text: "Save & Continue"
-            size_hint_y: None
-            height: dp(48)
-            background_color: 0.2, 0.6, 0.86, 1
-            color: 1,1,1,1
-            on_release: root.save_user_info()
-
-
-        Button:
-            text: "Back to Main"
-            size_hint_y: None
-            height: dp(48)
-            background_color: 0.6, 0.6, 0.6, 1
-            color: 1, 1, 1, 1
-            on_release: app.root.current = 'main'
 
 <MainScreen>:
     BoxLayout:
-        canvas.before:
-            Color:
-                rgba: 1, 1, 1, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
         orientation: 'vertical'
         padding: dp(16)
         spacing: dp(16)
@@ -242,14 +162,12 @@ KV = '''
         Label:
             text: "Workout App"
             font_size: '28sp'
-            color: 0, 0, 0, 1
             size_hint_y: None
             height: self.texture_size[1]
 
         Label:
             text: "Select an exercise:"
             font_size: '18sp'
-            color: 0, 0, 0, 1
             size_hint_y: None
             height: self.texture_size[1]
 
@@ -266,7 +184,7 @@ KV = '''
                 size_hint_y: None
                 height: dp(40)
                 background_color: 0.2, 0.6, 0.86, 1
-                color: 1, 1, 1, 1
+                color: 1,1,1,1
 
             Button:
                 text: "Arm"
@@ -275,7 +193,7 @@ KV = '''
                 size_hint_y: None
                 height: dp(40)
                 background_color: 0.18, 0.8, 0.44, 1
-                color: 1, 1, 1, 1
+                color: 1,1,1,1
 
             Button:
                 text: "Abs"
@@ -284,35 +202,30 @@ KV = '''
                 size_hint_y: None
                 height: dp(40)
                 background_color: 0.9, 0.3, 0.3, 1
-                color: 1, 1, 1, 1
+                color: 1,1,1,1
 
         Label:
             id: streak_label
             text: root.streak_text
             font_size: '14sp'
-            color: 0.1, 0.1, 0.1, 1
             size_hint_y: None
             height: self.texture_size[1]
+            color: 0.4, 0.4, 0.4, 1
 
         Widget:
-            size_hint_y: 1
+            size_hint_y: 1  # Spacer to push content to top
 
         Button:
             text: "Sign Out"
             size_hint_y: None
             height: dp(44)
             background_color: 0.8, 0.2, 0.2, 1
-            color: 1, 1, 1, 1
+            color: 1,1,1,1
             on_release: root.sign_out()
+
 
 <ExerciseScreen>:
     BoxLayout:
-        canvas.before:
-            Color:
-                rgba: 1, 1, 1, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
         orientation: 'vertical'
         padding: dp(16)
         spacing: dp(16)
@@ -321,7 +234,6 @@ KV = '''
             id: exercise_label
             text: ""
             font_size: '24sp'
-            color: 0, 0, 0, 1
             size_hint_y: None
             height: self.texture_size[1]
 
@@ -330,7 +242,7 @@ KV = '''
             size_hint_y: None
             height: dp(48)
             background_color: 0.2, 0.6, 0.86, 1
-            color: 1, 1, 1, 1
+            color: 1,1,1,1
             on_release: root.complete_exercise()
 
         Button:
@@ -338,42 +250,9 @@ KV = '''
             size_hint_y: None
             height: dp(48)
             background_color: 0.4, 0.4, 0.4, 1
-            color: 1, 1, 1, 1
+            color: 1,1,1,1
             on_release: app.root.current = 'main'
-
 '''
-
-class UserInfoScreen(Screen):
-
-    def save_user_info(self):
-        weight = self.ids.weight_input.text.strip()
-        height = self.ids.height_input.text.strip()
-
-        if not weight or not height:
-            self.ids.message_label.text = "Please enter both weight and height."
-            return
-
-        try:
-            weight = float(weight)
-            height = float(height)
-        except ValueError:
-            self.ids.message_label.text = "Weight and height must be numbers!"
-            return
-
-        # Simpan ke JSON Store
-        username = self.manager.app.current_user
-        store = self.manager.app.user_store
-
-        if store.exists(username):
-            user_data = store.get(username)
-            user_data['weight'] = weight
-            user_data['height'] = height
-            store.put(username, **user_data)
-
-        # Pindah ke halaman utama
-        self.manager.current = 'main'
-        self.manager.get_screen('main').update_streak()
-
 
 def hash_password(password: str) -> str:
     """Hash a password string using SHA-256."""
@@ -424,19 +303,14 @@ class SignUpScreen(Screen):
             return
 
         password_hash = hash_password(password)
-
-        # Simpan user baru + siapkan kolom berat & tinggi kosong
-        store.put(username,
-                  password_hash=password_hash,
-                  weight=None,
-                  height=None)
-
-        # Simpan sebagai user yang sedang login
-        self.manager.app.current_user = username
-
-        # Langsung ke halaman User Info
-        self.manager.current = 'userinfo'
-
+        store.put(username, password_hash=password_hash)
+        self.ids.message_label.text = "Account created! Please sign in."
+        # Clear inputs
+        self.ids.username_input.text = ''
+        self.ids.password_input.text = ''
+        self.ids.password_confirm_input.text = ''
+        # Go to sign in screen
+        self.manager.current = 'signin'
 
 class MainScreen(Screen):
     streak_text = "Loading streak..."
@@ -523,7 +397,6 @@ class WorkoutApp(App):
         self.sm.add_widget(SignUpScreen(name='signup'))
         self.sm.add_widget(MainScreen(name='main'))
         self.sm.add_widget(ExerciseScreen(name='exercise'))
-        self.sm.add_widget(UserInfoScreen(name='userinfo'))
 
         # Decide initial screen based on if user accounts exist
         if len(self.user_store) == 0:
@@ -536,4 +409,3 @@ class WorkoutApp(App):
 
 if __name__ == '__main__':
     WorkoutApp().run()
-
