@@ -1,0 +1,506 @@
+#:import utils kivy.utils
+#:import StringProperty kivy.properties.StringProperty
+#:import Factory kivy.factory.Factory
+
+ScreenManager:
+    SignInScreen:
+        name: 'signin'
+    SignUpScreen:
+        name: 'signup'
+    UserInfoScreen:
+        name: 'userinfo'
+    MainScreen:
+        name: 'main'
+    ExerciseScreen:
+        name: 'exercise'
+
+<MealCard@BoxLayout>:
+    orientation: 'horizontal'
+    size_hint_x: None
+    width: dp(180)
+    size_hint_y: None
+    height: dp(120)
+    padding: dp(8)
+    spacing: dp(8)
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(8)]
+        Color:
+            rgba: 0.88, 0.88, 0.9, 1
+        Line:
+            rounded_rectangle: (self.x, self.y, self.width, self.height, dp(8))
+            width: 1.1
+    Image:
+        id: meal_image
+        source: 'atlas://data/images/defaulttheme/image-missing'
+        size_hint_x: 0.35
+        allow_stretch: True
+        keep_ratio: True
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint_x: 0.65
+        spacing: dp(4)
+        padding: [dp(5), 0, 0, 0]
+        Label:
+            id: meal_name
+            text: "Nama Makanan"
+            font_size: '14sp'
+            color: 0.05, 0.05, 0.05, 1
+            bold: True
+            halign: 'left'
+            valign: 'top'
+            text_size: self.width, None
+            size_hint_y: None
+            height: self.texture_size[1]
+            shorten: True
+            shorten_from: 'right'
+        Label:
+            id: meal_desc
+            text: "Deskripsi singkat."
+            font_size: '10sp'
+            color: 0.3, 0.3, 0.3, 1
+            halign: 'left'
+            valign: 'top'
+            text_size: self.width, None
+            max_lines: 3
+            shorten: True
+            shorten_from: 'right'
+            height: self.texture_size[1] if self.texture_size[1] < dp(50) else dp(50)
+
+
+<SignInScreen>:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: 'vertical'
+        padding: dp(24)
+        spacing: dp(16)
+        id: signin_layout
+
+        Label:
+            text: "Sign In"
+            font_size: '28sp'
+            color: 0, 0, 0, 1
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        TextInput:
+            id: username_input
+            hint_text: "Username"
+            multiline: False
+            size_hint_y: None
+            height: dp(40)
+
+        TextInput:
+            id: password_input
+            hint_text: "Password"
+            multiline: False
+            password: True
+            size_hint_y: None
+            height: dp(40)
+
+        Label:
+            id: message_label
+            text: ''
+            color: 1, 0, 0, 1
+            font_size: '14sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Button:
+            text: "Sign In"
+            size_hint_y: None
+            height: dp(48)
+            background_color: 0.2, 0.6, 0.86, 1
+            color: 1, 1, 1, 1
+            on_release: root.sign_in()
+
+        Widget:
+            size_hint_y: 1
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(40)
+            spacing: dp(8)
+            Label:
+                text: "Don't have an account?"
+                font_size: '14sp'
+                color: 0, 0, 0, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+            Button:
+                text: "Sign Up"
+                background_color: 0.18, 0.8, 0.44, 1
+                color: 1, 1, 1, 1
+                size_hint_x: None
+                width: dp(80)
+                on_release: app.root.current = 'signup'
+
+<SignUpScreen>:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: 'vertical'
+        padding: dp(24)
+        spacing: dp(16)
+        id: signup_layout
+
+        Label:
+            text: "Sign Up"
+            font_size: '28sp'
+            color: 0, 0, 0, 1
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        TextInput:
+            id: username_input
+            hint_text: "Choose a Username"
+            multiline: False
+            size_hint_y: None
+            height: dp(40)
+
+        TextInput:
+            id: password_input
+            hint_text: "Choose a Password"
+            multiline: False
+            password: True
+            size_hint_y: None
+            height: dp(40)
+
+        TextInput:
+            id: password_confirm_input
+            hint_text: "Confirm Password"
+            multiline: False
+            password: True
+            size_hint_y: None
+            height: dp(40)
+
+        Label:
+            id: message_label
+            text: ''
+            color: 1, 0, 0, 1
+            font_size: '14sp'
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Button:
+            text: "Sign Up"
+            size_hint_y: None
+            height: dp(48)
+            background_color: 0.18, 0.8, 0.44, 1
+            color: 1, 1, 1, 1
+            on_release: root.sign_up()
+
+        Widget:
+            size_hint_y: 1
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(40)
+            spacing: dp(8)
+            Label:
+                text: "Already have an account?"
+                font_size: '14sp'
+                color: 0, 0, 0, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+            Button:
+                text: "Sign In"
+                background_color: 0.2, 0.6, 0.86, 1
+                color: 1, 1, 1, 1
+                size_hint_x: None
+                width: dp(80)
+                on_release: app.root.current = 'signin'
+
+<UserInfoScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(16)
+        padding: dp(24)
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Your Body Info"
+            font_size: '28sp'
+            color: 0, 0, 0, 1
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        TextInput:
+            id: weight_input
+            hint_text: "Enter your weight (kg)"
+            input_filter: 'float'
+            multiline: False
+            size_hint_y: None
+            height: dp(48)
+
+        TextInput:
+            id: height_input
+            hint_text: "Enter your height (cm)"
+            input_filter: 'float'
+            multiline: False
+            size_hint_y: None
+            height: dp(48)
+
+        Label:
+            id: info_message
+            text: ""
+            font_size: '14sp'
+            color: 1, 0, 0, 1
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Button:
+            text: "Save & Continue"
+            size_hint_y: None
+            height: dp(48)
+            background_color: 0.2, 0.6, 0.86, 1
+            color: 1,1,1,1
+            on_release: root.save_user_info()
+
+        Button:
+            text: "Back to Main"
+            size_hint_y: None
+            height: dp(48)
+            background_color: 0.6, 0.6, 0.6, 1
+            color: 1, 1, 1, 1
+            on_release: app.root.current = 'main'
+
+<MainScreen>:
+    ScrollView: 
+        bar_width: dp(5)
+        do_scroll_y: True
+        do_scroll_x: False
+        BoxLayout: 
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height 
+            padding: dp(16)
+            spacing: dp(8)
+            canvas.before: 
+                Color:
+                    rgba: 0.95, 0.95, 0.98, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(50)
+                spacing: dp(10)
+                Image:
+                    source: 'atlas://data/images/defaulttheme/checkbox_off'
+                    size_hint_x: None
+                    width: dp(40)
+                Label:
+                    id: greeting_label
+                    text: "Hai, User!"
+                    font_size: '20sp'
+                    color: 0.1, 0.1, 0.1, 1
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.width, None
+                    size_hint_x: 0.8
+                Button:
+                    text: "☀"
+                    font_size: '24sp'
+                    size_hint_x: None
+                    width: dp(40)
+                    background_color: 0,0,0,0
+                    color: 0.2, 0.6, 0.86, 1
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: dp(120)
+                padding: dp(10)
+                spacing: dp(6)
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(15)]
+                    Color:
+                        rgba: 0.85, 0.85, 0.9, 1
+                    Line:
+                        rounded_rectangle: (self.x, self.y, self.width, self.height, dp(15))
+                        width: 1.2
+                Label:
+                    text: "Udah ukur TB/BB?"
+                    font_size: '15sp'
+                    color: 0.2, 0.2, 0.2, 1
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    halign: 'center'
+                BoxLayout:
+                    size_hint_y: None
+                    height: dp(40)
+                    spacing: dp(10)
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(1)
+                        Label:
+                            text: "TB (cm)"
+                            font_size: '11sp'
+                            color: 0.3,0.3,0.3,1
+                        Label:
+                            id: tb_display
+                            text: "N/A"
+                            font_size: '15sp'
+                            color: 0.1, 0.1, 0.1, 1
+                            bold: True
+                            halign: 'center'
+                    Image:
+                        source: 'atlas://data/images/defaulttheme/separator'
+                        size_hint_x: None
+                        width: dp(1)
+                    BoxLayout:
+                        orientation: 'vertical'
+                        spacing: dp(1)
+                        Label:
+                            text: "BB (kg)"
+                            font_size: '11sp'
+                            color: 0.3,0.3,0.3,1
+                        Label:
+                            id: bb_display
+                            text: "N/A"
+                            font_size: '15sp'
+                            color: 0.1, 0.1, 0.1, 1
+                            bold: True
+                            halign: 'center'
+                Button:
+                    text: "Update Data TB/BB"
+                    size_hint_y: None
+                    height: dp(30)
+                    font_size: '12sp'
+                    background_color: 0.2, 0.6, 0.86, 0.05
+                    color: 0.2, 0.6, 0.86, 1
+                    on_release: app.root.current = 'userinfo'
+                    canvas.before:
+                        Color:
+                            rgba: 0.2, 0.6, 0.86, 1
+                        Line:
+                            rectangle: (self.x, self.y, self.width, self.height)
+                            width: 1.1
+            
+            Label:
+                text: "Rencana Makan Harian Anda"
+                font_size: '17sp'
+                color: 0.1,0.1,0.1,1
+                bold: True
+                size_hint_y: None
+                height: self.texture_size[1]
+                padding: [0, dp(10), 0, dp(6)] 
+            Label:
+                id: bmi_info_label
+                text: "BMI Anda: Menghitung..."
+                font_size: '13sp'
+                color: 0.25,0.25,0.25,1
+                size_hint_y: None
+                height: self.texture_size[1]
+                padding: [0, dp(3), 0, dp(8)] 
+
+            GridLayout: 
+                id: food_sections_container
+                cols: 1
+                spacing: dp(10) 
+                size_hint_y: None
+                height: self.minimum_height 
+
+            Label:
+                text: "Jadwal Workout"
+                font_size: '17sp'
+                color: 0.1,0.1,0.1,1
+                bold: True
+                size_hint_y: None
+                height: self.texture_size[1]
+                padding: [0, dp(10), 0, dp(6)]
+
+            GridLayout:
+                cols: 2
+                spacing: dp(10)
+                size_hint_y: None
+                height: dp(50)
+                Button:
+                    text: "Senin"
+                    font_size: '15sp'
+                    background_color: 0.2, 0.6, 0.86, 1
+                    on_release: root.start_exercise("Workout Senin")
+                Button:
+                    text: "Rabu"
+                    font_size: '15sp'
+                    background_color: 0.9, 0.3, 0.3, 1
+                    on_release: root.start_exercise("Workout Rabu")
+
+            Label:
+                id: streak_label
+                text: root.streak_text
+                font_size: '13sp'
+                color: 0.1, 0.1, 0.1, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+                padding: [0, dp(8), 0, dp(4)]
+
+            Button: 
+                text: "Sign Out"
+                size_hint_y: None
+                height: dp(44)
+                background_color: 0.7, 0.7, 0.7, 1
+                color: 1, 1, 1, 1
+                on_release: root.sign_out()
+
+
+<ExerciseScreen>:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        orientation: 'vertical'
+        padding: dp(16)
+        spacing: dp(16)
+
+        Label:
+            id: exercise_label
+            text: ""
+            font_size: '24sp'
+            color: 0, 0, 0, 1
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Button:
+            text: "Complete Exercise"
+            size_hint_y: None
+            height: dp(48)
+            background_color: 0.2, 0.6, 0.86, 1
+            color: 1, 1, 1, 1
+            on_release: root.complete_exercise()
+
+        Button:
+            text: "Back to Home"
+            size_hint_y: None
+            height: dp(48)
+            background_color: 0.4, 0.4, 0.4, 1
+            color: 1, 1, 1, 1
+            on_release: app.root.current = 'main'
