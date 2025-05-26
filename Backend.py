@@ -22,6 +22,9 @@ Window.size = (dp(phone_width_dp), dp(phone_height_dp))
 class MenuDietScreen(Screen):
     pass
 
+class MyScreenManager(ScreenManager):
+    pass
+
 class UserInfoScreen(Screen):
     def save_user_info(self):
         weight_str = self.ids.weight_input.text.strip()
