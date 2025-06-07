@@ -253,6 +253,7 @@
             multiline: False
             size_hint_y: None
             height: dp(48)
+            on_text: root.update_bmi_bar()
 
         TextInput:
             id: height_input
@@ -261,6 +262,58 @@
             multiline: False
             size_hint_y: None
             height: dp(48)
+            on_text: root.update_bmi_bar()
+
+        # --- BMI BAR STARTS HERE ---
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: dp(54)
+            padding: [dp(8), dp(2), dp(8), dp(2)]
+            spacing: dp(2)
+            Label:
+                text: "BMI Scale"
+                font_size: '11sp'
+                color: 0.3, 0.3, 0.3, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+            BoxLayout:
+                size_hint_y: None
+                height: dp(14)
+                canvas:
+                    Color:  # Underweight
+                        rgba: 0.5, 0.7, 1, 1
+                    Rectangle:
+                        pos: self.x, self.y
+                        size: self.width * 0.185, self.height
+                    Color:  # Normal
+                        rgba: 0.4, 0.9, 0.4, 1
+                    Rectangle:
+                        pos: self.x + self.width * 0.185, self.y
+                        size: self.width * 0.245, self.height
+                    Color:  # Overweight
+                        rgba: 1, 0.85, 0.3, 1
+                    Rectangle:
+                        pos: self.x + self.width * 0.43, self.y
+                        size: self.width * 0.245, self.height
+                    Color:  # Obese
+                        rgba: 1, 0.4, 0.4, 1
+                    Rectangle:
+                        pos: self.x + self.width * 0.675, self.y
+                        size: self.width * 0.325, self.height
+                    # BMI pointer
+                    Color:
+                        rgba: 0.2, 0.2, 0.2, 1
+                    Rectangle:
+                        pos: self.x + (self.width * (root.bmi_value if root.bmi_value and root.bmi_value < 18.5 else root.bmi_value + 20.5 if root.bmi_value and 18.5 <= root.bmi_value < 23 else root.bmi_value + 40 if root.bmi_value and 23 <= root.bmi_value < 27.5 else root.bmi_value + 45 if root.bmi_value and 27.5 <= root.bmi_value else 39.9) / 100.0) - dp(2), self.y
+                        size: dp(4), self.height + dp(4)
+        Label:
+            text: "BMI: {:.1f} {}".format(root.bmi_value, root.bmi_category)
+            font_size: '12sp'
+            color: 0.2, 0.2, 0.2, 1
+            size_hint_y: None
+            height: self.texture_size[1]
+        # --- BMI BAR ENDS HERE ---
 
         Label:
             id: info_message

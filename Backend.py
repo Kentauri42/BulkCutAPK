@@ -4,7 +4,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.storage.jsonstore import JsonStore
 from kivy.core.window import Window
 from kivy.metrics import dp
-from kivy.properties import StringProperty
+from kivy.properties import StringProperty, NumericProperty
 from datetime import datetime, timedelta
 import hashlib
 from kivy.factory import Factory
@@ -26,6 +26,9 @@ class MyScreenManager(ScreenManager):
     pass
 
 class UserInfoScreen(Screen):
+    bmi_value = NumericProperty(0)
+    bmi_category = StringProperty("")
+
     def save_user_info(self):
         weight_str = self.ids.weight_input.text.strip()
         height_str = self.ids.height_input.text.strip()
@@ -60,6 +63,28 @@ class UserInfoScreen(Screen):
         self.ids.info_message.color = (0, 0.6, 0.2, 1)
 
         self.manager.current = 'main'
+
+    def update_bmi_bar(self, *args):
+        try:
+            weight = float(self.ids.weight_input.text)
+            height = float(self.ids.height_input.text)
+            if weight > 0 and height > 0:
+                bmi = weight / ((height / 100) ** 2)
+                self.bmi_value = bmi
+                if bmi < 18.5:
+                    self.bmi_category = "Underweight"
+                elif bmi < 23:
+                    self.bmi_category = "Normal"
+                elif bmi < 27.5:
+                    self.bmi_category = "Overweight"
+                else:
+                    self.bmi_category = "Obese"
+            else:
+                self.bmi_value = 0
+                self.bmi_category = ""
+        except Exception:
+            self.bmi_value = 0
+            self.bmi_category = ""
 
 def hash_password(password: str) -> str:
     return hashlib.sha256(password.encode('utf-8')).hexdigest()
@@ -124,6 +149,7 @@ class SignUpScreen(Screen):
 
 class MainScreen(Screen):
     streak_text = StringProperty("Loading streak...")
+    bmi_value = NumericProperty(0)
 
     EATING_PLANS = {
         "underweight": {
@@ -288,9 +314,13 @@ class MainScreen(Screen):
             else: self.ids.bb_display.text = "N/A"
             if height is not None: self.ids.tb_display.text = f"{height:.1f}"
             else: self.ids.tb_display.text = "N/A"
+            # Update BMI value for the bar
+            bmi = self.calculate_bmi(weight, height)
+            self.bmi_value = bmi if bmi else 0
         else:
             self.ids.greeting_label.text = "Hai, Guest!"
             self.ids.bb_display.text = "N/A"; self.ids.tb_display.text = "N/A"
+            self.bmi_value = 0
 
     def start_exercise(self, exercise_name):
         exercise_screen = self.manager.get_screen('exercise')
