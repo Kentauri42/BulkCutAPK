@@ -128,58 +128,58 @@ class MainScreen(Screen):
     EATING_PLANS = {
         "underweight": {
             "pagi": [
-                {"name": "Nasi Uduk Komplit", "image": "atlas://data/images/defaulttheme/filechooser_list", "desc": "Kalori & protein tinggi."},
-                {"name": "Smoothie Pisang & Selai Kacang", "image": "atlas://data/images/defaulttheme/media_player_play", "desc": "Padat kalori, mudah dicerna."},
+                {"name": "Nasi Uduk Komplit", "image": "images/und1.png", "desc": "Kalori & protein tinggi."},
+                {"name": "Smoothie Pisang & Selai Kacang", "image": "images/und2.png", "desc": "Padat kalori, mudah dicerna."},
             ],
             "siang": [
-                {"name": "Soto Daging Santan", "image": "atlas://data/images/defaulttheme/filechooser_icon_view", "desc": "Kuah kental, daging, perkedel."},
-                {"name": "Pasta Carbonara", "image": "atlas://data/images/defaulttheme/button_radio_on", "desc": "Smoked beef/ayam, telur, keju."},
+                {"name": "Soto Daging Santan", "image": "images/und3.png", "desc": "Kuah kental, daging, perkedel."},
+                {"name": "Pasta Carbonara", "image": "images/und4.png", "desc": "Smoked beef/ayam, telur, keju."},
             ],
             "malam": [
-                {"name": "Martabak Telur Spesial", "image": "atlas://data/images/defaulttheme/tree_closed", "desc": "Isi daging cincang, daun bawang."},
-                {"name": "Susu Full Cream & Cookies", "image": "atlas://data/images/defaulttheme/textinput_disabled", "desc": "Camilan malam penambah kalori."},
+                {"name": "Martabak Telur Spesial", "image": "images/und5.png", "desc": "Isi daging cincang, daun bawang."},
+                {"name": "Susu Full Cream & Cookies", "image": "images/und6.png", "desc": "Camilan malam penambah kalori."},
             ]
         },
         "normal": {
             "pagi": [
-                {"name": "Bubur Ayam Komplit", "image": "atlas://data/images/defaulttheme/filechooser_up", "desc": "Porsi seimbang, nutrisi lengkap."},
-                {"name": "Roti Gandum & Alpukat Telur", "image": "atlas://data/images/defaulttheme/textinput_focus", "desc": "Serat, protein, lemak sehat."},
+                {"name": "Bubur Ayam Komplit", "image": "images/nor1.png", "desc": "Porsi seimbang, nutrisi lengkap."},
+                {"name": "Roti Gandum & Alpukat Telur", "image": "images/nor2.png", "desc": "Serat, protein, lemak sehat."},
             ],
             "siang": [
-                {"name": "Gado-Gado Lontong", "image": "atlas://data/images/defaulttheme/spinner_pressed", "desc": "Sayuran, tahu, tempe, telur, lontong."},
-                {"name": "Ikan Kembung Bakar & Nasi Merah", "image": "atlas://data/images/defaulttheme/slider_cursor", "desc": "Bumbu minimalis, sambal, lalapan."},
+                {"name": "Gado-Gado Lontong", "image": "images/nor3.png", "desc": "Sayuran, tahu, tempe, telur, lontong."},
+                {"name": "Ikan Kembung Bakar & Nasi Merah", "image": "images/nor4.png", "desc": "Bumbu minimalis, sambal, lalapan."},
             ],
             "malam": [
-                {"name": "Tumis Brokoli Ayam Fillet", "image": "atlas://data/images/defaulttheme/tab_btn_disabled", "desc": "Porsi ringan, protein & serat."},
-                {"name": "Buah Potong & Yoghurt Plain", "image": "atlas://data/images/defaulttheme/colorpicker_alpha_bg", "desc": "Hindari makan berat dekat tidur."},
+                {"name": "Tumis Brokoli Ayam Fillet", "image": "images/nor5.png", "desc": "Porsi ringan, protein & serat."},
+                {"name": "Buah Potong & Yoghurt Plain", "image": "images/nor6.png", "desc": "Hindari makan berat dekat tidur."},
             ]
         },
         "overweight": {
             "pagi": [
-                {"name": "Oatmeal & Buah Beri", "image": "atlas://data/images/defaulttheme/progressbar_background", "desc": "Plain oatmeal, buah beri, madu."},
-                {"name": "Dada Ayam Rebus & Salad", "image": "atlas://data/images/defaulttheme/splitter_horizontal", "desc": "Ayam suwir, mix green salad."},
+                {"name": "Oatmeal & Buah Beri", "image": "images/ovr1.png", "desc": "Plain oatmeal, buah beri, madu."},
+                {"name": "Dada Ayam Rebus & Salad", "image": "images/ovr2.png", "desc": "Ayam suwir, mix green salad."},
             ],
             "siang": [
-                {"name": "Sop Bening Sayur & Tahu Sutra", "image": "atlas://data/images/defaulttheme/action_previous", "desc": "Wortel, buncis, kembang kol."},
-                {"name": "Tumis Kangkung Udang & Nasi Kongbap", "image": "atlas://data/images/defaulttheme/media_eject", "desc": "Kangkung, sedikit udang, nasi biji."},
+                {"name": "Sop Bening Sayur & Tahu Sutra", "image": "images/ovr3.png", "desc": "Wortel, buncis, kembang kol."},
+                {"name": "Tumis Kangkung Udang & Nasi Kongbap", "image": "images/ovr4.png", "desc": "Kangkung, sedikit udang, nasi biji."},
             ],
             "malam": [
-                {"name": "Sup Krim Jamur Rendah Lemak", "image": "atlas://data/images/defaulttheme/button_disabled", "desc": "Gunakan susu skim, tanpa krim."},
-                {"name": "Apel Panggang Kayu Manis", "image": "atlas://data/images/defaulttheme/filechooser_disabled", "desc": "Camilan malam rendah kalori."},
+                {"name": "Sup Krim Jamur Rendah Lemak", "image": "images/ovr5.png", "desc": "Gunakan susu skim, tanpa krim."},
+                {"name": "Apel Panggang Kayu Manis", "image": "images/ovr6.png", "desc": "Camilan malam rendah kalori."},
             ]
         },
         "obese": {
             "pagi": [
-                {"name": "Yoghurt Plain & Chia Seed Pepaya", "image": "atlas://data/images/defaulttheme/vkeyboard_key_special", "desc": "Rendah kalori, tinggi serat."},
-                {"name": "Smoothie Hijau (Sayur & Buah)", "image": "atlas://data/images/defaulttheme/icon", "desc": "Bayam, timun, nanas/apel hijau."},
+                {"name": "Yoghurt Plain & Chia Seed Pepaya", "image": "images/obs1.png", "desc": "Rendah kalori, tinggi serat."},
+                {"name": "Smoothie Hijau (Sayur & Buah)", "image": "images/obs2.png", "desc": "Bayam, timun, nanas/apel hijau."},
             ],
             "siang": [
-                {"name": "Pepes Tahu Jamur (Tanpa Nasi)", "image": "atlas://data/images/defaulttheme/tree_opened", "desc": "Protein nabati, kukus."},
-                {"name": "Salad Sayur & Kacang Merah Rebus", "image": "atlas://data/images/defaulttheme/filechooser_selected", "desc": "Dressing cuka apel."},
+                {"name": "Pepes Tahu Jamur (Tanpa Nasi)", "image": "images/obs3.png", "desc": "Protein nabati, kukus."},
+                {"name": "Salad Sayur & Kacang Merah Rebus", "image": "images/obs4.png", "desc": "Dressing cuka apel."},
             ],
             "malam": [
-                {"name": "Sayur Bening Bayam & Oyong", "image": "atlas://data/images/defaulttheme/checkbox_disabled_on", "desc": "Sangat rendah kalori, hindari nasi."},
-                {"name": "Agar-agar Plain dengan Buah", "image": "atlas://data/images/defaulttheme/button_radio_disabled_on", "desc": "Tanpa gula, isi buah segar."},
+                {"name": "Sayur Bening Bayam & Oyong", "image": "images/obs5.png", "desc": "Sangat rendah kalori, hindari nasi."},
+                {"name": "Agar-agar Plain dengan Buah", "image": "images/obs6.png", "desc": "Tanpa gula, isi buah segar."},
             ]
         },
         "unknown": {
@@ -300,7 +300,7 @@ class MainScreen(Screen):
 
     def update_streak(self):
         store = self.manager.app.store
-        data = store.get('workout') or {}
+        data = store.get('workout') if store.exists('workout') else {}
         dates = data.get('dates', [])
         streak_count = self.calculate_streak(dates)
         self.streak_text = f"Current workout streak: {streak_count} day(s)"

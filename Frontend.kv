@@ -23,20 +23,56 @@
             rounded_rectangle: (self.x, self.y, self.width, self.height, dp(8))
             width: 1.1
 
-    Image:
-        id: meal_image
-        source: 'atlas://data/images/defaulttheme/image-missing'
+    BoxLayout:
+        orientation: 'vertical'
         size_hint_x: 0.35
-        allow_stretch: True
+        size_hint_y: 1
+        padding: 0
+        spacing: 0
+        AnchorLayout:
+            anchor_y: 'center'
+            StencilView:
+                size_hint: None, None
+                size: dp(64), dp(64)
+                canvas:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(32)]
+                Image:
+                    id: meal_image
+                    source: 'atlas://data/images/defaulttheme/image-missing'
+                    allow_stretch: True
+                    keep_ratio: True
+                    size_hint: 1, 1
+                    pos: self.parent.pos
+                    size: self.parent.size
 
     BoxLayout:
         orientation: 'vertical'
+        size_hint_x: 0.65
+        size_hint_y: 1
+        padding: 0
+        spacing: 2
         Label:
             id: meal_name
             text: "Meal Name"
+            font_size: '15sp'
+            color: 0.1, 0.1, 0.1, 1
+            bold: True
+            halign: 'left'
+            valign: 'middle'
+            text_size: self.size
         Label:
             id: meal_desc
             text: "Short description"
+            font_size: '12sp'
+            color: 0.3, 0.3, 0.3, 1
+            halign: 'left'
+            valign: 'top'
+            text_size: self.size
 
 
 <SignInScreen>:
@@ -406,68 +442,64 @@
                 do_scroll_y: False
                 size_hint_y: None
                 height: dp(100)
-
-                AnchorLayout:
-                    anchor_x: 'left'
-                    anchor_y: 'top'
                     
-                    GridLayout:
-                        cols: 7
-                        size_hint_x: None
-                        width: self.minimum_width
-                        row_default_height: dp(50)
-                        row_force_default: True
-                        spacing: dp(10)
-                        padding: dp(10)
-                        Button:
-                            text: "Senin"
-                            font_size: '15sp'
-                            background_color: 0.2, 0.6, 0.86, 1
-                            size_hint: None, None
-                            size: dp(100), dp(50)
-                            on_release: root.start_exercise("Workout Senin")
-                        Button:
-                            text: "Selasa"
-                            font_size: '15sp'
-                            background_color: 0.2, 0.6, 0.86, 1
-                            size_hint: None, None
-                            size: dp(100), dp(50)
-                            on_release: root.start_exercise("Workout Selasa")
-                        Button:
-                            text: "Rabu"
-                            font_size: '15sp'
-                            background_color: 0.9, 0.3, 0.3, 1
-                            size_hint: None, None
-                            size: dp(100), dp(50)
-                            on_release: root.start_exercise("Workout Rabu")
-                        Button:
-                            text: "Kamis"
-                            font_size: '15sp'
-                            background_color: 0.2, 0.6, 0.86, 1
-                            size_hint: None, None
-                            size: dp(100), dp(50)
-                            on_release: root.start_exercise("Workout Kamis")
-                        Button:
-                            text: "Jumat"
-                            font_size: '15sp'
-                            background_color: 0.2, 0.6, 0.86, 1
-                            size_hint: None, None
-                            size: dp(100), dp(50)
-                            on_release: root.start_exercise("Workout Jumat")
-                        Button:
-                            text: "Sabtu"
-                            font_size: '15sp'
-                            background_color: 0.9, 0.3, 0.3, 1
-                            size_hint: None, None
-                            size: dp(100), dp(50)
-                            on_release: root.start_exercise("Workout Sabtu")
-                        Button:
-                            text: "Minggu"
-                            font_size: '15sp'
-                            background_color: 0.9, 0.3, 0.3, 1
-                            size_hint: None, None
-                            size: dp(100), dp(50)
-                            on_release: root.start_exercise("Workout Minggu")
+                GridLayout:
+                    cols: 7
+                    size_hint_x: None
+                    width: self.minimum_width
+                    row_default_height: dp(50)
+                    row_force_default: True
+                    spacing: dp(10)
+                    padding: dp(10)
+                    Button:
+                        text: "Senin"
+                        font_size: '15sp'
+                        background_color: 0.2, 0.6, 0.86, 1
+                        size_hint: None, None
+                        size: dp(100), dp(50)
+                        on_release: root.start_exercise("Workout Senin")
+                    Button:
+                        text: "Selasa"
+                        font_size: '15sp'
+                        background_color: 0.2, 0.6, 0.86, 1
+                        size_hint: None, None
+                        size: dp(100), dp(50)
+                        on_release: root.start_exercise("Workout Selasa")
+                    Button:
+                        text: "Rabu"
+                        font_size: '15sp'
+                        background_color: 0.9, 0.3, 0.3, 1
+                        size_hint: None, None
+                        size: dp(100), dp(50)
+                        on_release: root.start_exercise("Workout Rabu")
+                    Button:
+                        text: "Kamis"
+                        font_size: '15sp'
+                        background_color: 0.2, 0.6, 0.86, 1
+                        size_hint: None, None
+                        size: dp(100), dp(50)
+                        on_release: root.start_exercise("Workout Kamis")
+                    Button:
+                        text: "Jumat"
+                        font_size: '15sp'
+                        background_color: 0.2, 0.6, 0.86, 1
+                        size_hint: None, None
+                        size: dp(100), dp(50)
+                        on_release: root.start_exercise("Workout Jumat")
+                    Button:
+                        text: "Sabtu"
+                        font_size: '15sp'
+                        background_color: 0.9, 0.3, 0.3, 1
+                        size_hint: None, None
+                        size: dp(100), dp(50)
+                        on_release: root.start_exercise("Workout Sabtu")
+                    Button:
+                        text: "Minggu"
+                        font_size: '15sp'
+                        background_color: 0.9, 0.3, 0.3, 1
+                        size_hint: None, None
+                        size: dp(100), dp(50)
+                        on_release: root.start_exercise("Workout Minggu")
 
             Label:
                 id: streak_label
