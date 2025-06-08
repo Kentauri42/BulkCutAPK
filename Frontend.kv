@@ -340,17 +340,17 @@
             on_release: app.root.current = 'main'
 
 <MainScreen>:
-    ScrollView: 
+    ScrollView:
         bar_width: dp(5)
         do_scroll_y: True
         do_scroll_x: False
-        BoxLayout: 
+        BoxLayout:
             orientation: 'vertical'
             size_hint_y: None
-            height: self.minimum_height 
+            height: self.minimum_height
             padding: dp(16)
             spacing: dp(8)
-            canvas.before: 
+            canvas.before:
                 Color:
                     rgba: 0.95, 0.95, 0.98, 1
                 Rectangle:
@@ -375,12 +375,14 @@
                     text_size: self.width, None
                     size_hint_x: 0.8
                 Button:
-                    text: "☀"
-                    font_size: '24sp'
+                    text: "Sign Out"
+                    font_size: '14sp'
                     size_hint_x: None
-                    width: dp(40)
-                    background_color: 0,0,0,0
+                    width: dp(80)
+                    background_color: 0, 0, 0, 0
                     color: 0.2, 0.6, 0.86, 1
+                    on_release:
+                        root.sign_out()
 
             BoxLayout:
                 orientation: 'vertical'
@@ -457,7 +459,7 @@
                         Line:
                             rectangle: (self.x, self.y, self.width, self.height)
                             width: 1.1
-            
+
             Label:
                 text: "Rencana Makan Harian Anda"
                 font_size: '17sp'
@@ -465,7 +467,7 @@
                 bold: True
                 size_hint_y: None
                 height: self.texture_size[1]
-                padding: [0, dp(10), 0, dp(6)] 
+                padding: [0, dp(10), 0, dp(6)]
             Label:
                 id: bmi_info_label
                 text: "BMI Anda: Menghitung..."
@@ -473,14 +475,14 @@
                 color: 0.25,0.25,0.25,1
                 size_hint_y: None
                 height: self.texture_size[1]
-                padding: [0, dp(3), 0, dp(8)] 
+                padding: [0, dp(3), 0, dp(8)]
 
-            GridLayout: 
+            GridLayout:
                 id: food_sections_container
                 cols: 1
-                spacing: dp(10) 
+                spacing: dp(10)
                 size_hint_y: None
-                height: self.minimum_height 
+                height: self.minimum_height
 
             Label:
                 text: "Jadwal Workout"
@@ -491,11 +493,10 @@
                 height: self.texture_size[1] + dp(10)
 
             ScrollView:
-                do_scroll_x: True
                 do_scroll_y: False
                 size_hint_y: None
                 height: dp(100)
-                    
+
                 GridLayout:
                     cols: 7
                     size_hint_x: None
@@ -505,54 +506,26 @@
                     spacing: dp(10)
                     padding: dp(10)
                     Button:
-                        text: "Senin"
+                        text: "Lengan"
                         font_size: '15sp'
-                        background_color: 0.2, 0.6, 0.86, 1
+                        background_color: 0, 0, 0, 1
                         size_hint: None, None
                         size: dp(100), dp(50)
-                        on_release: root.start_exercise("Workout Senin")
+                        on_release: root.start_exercise("Workout Lengan")
                     Button:
-                        text: "Selasa"
+                        text: "Kaki"
                         font_size: '15sp'
-                        background_color: 0.2, 0.6, 0.86, 1
+                        background_color: 0, 0, 0, 1
                         size_hint: None, None
                         size: dp(100), dp(50)
-                        on_release: root.start_exercise("Workout Selasa")
+                        on_release: root.start_exercise("Workout Kaki")
                     Button:
-                        text: "Rabu"
+                        text: "Dada"
                         font_size: '15sp'
-                        background_color: 0.9, 0.3, 0.3, 1
+                        background_color: 0, 0, 0, 1
                         size_hint: None, None
                         size: dp(100), dp(50)
-                        on_release: root.start_exercise("Workout Rabu")
-                    Button:
-                        text: "Kamis"
-                        font_size: '15sp'
-                        background_color: 0.2, 0.6, 0.86, 1
-                        size_hint: None, None
-                        size: dp(100), dp(50)
-                        on_release: root.start_exercise("Workout Kamis")
-                    Button:
-                        text: "Jumat"
-                        font_size: '15sp'
-                        background_color: 0.2, 0.6, 0.86, 1
-                        size_hint: None, None
-                        size: dp(100), dp(50)
-                        on_release: root.start_exercise("Workout Jumat")
-                    Button:
-                        text: "Sabtu"
-                        font_size: '15sp'
-                        background_color: 0.9, 0.3, 0.3, 1
-                        size_hint: None, None
-                        size: dp(100), dp(50)
-                        on_release: root.start_exercise("Workout Sabtu")
-                    Button:
-                        text: "Minggu"
-                        font_size: '15sp'
-                        background_color: 0.9, 0.3, 0.3, 1
-                        size_hint: None, None
-                        size: dp(100), dp(50)
-                        on_release: root.start_exercise("Workout Minggu")
+                        on_release: root.start_exercise("Workout Dada")
 
             Label:
                 id: streak_label
@@ -563,7 +536,7 @@
                 height: self.texture_size[1]
                 padding: [0, dp(8), 0, dp(4)]
 
-            Button: 
+            Button:
                 text: "Sign Out"
                 size_hint_y: None
                 height: dp(44)
@@ -574,15 +547,17 @@
 
 <ExerciseScreen>:
     BoxLayout:
-        canvas.before:
-            Color:
-                rgba: 1, 1, 1, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
+        # existing properties...
         orientation: 'vertical'
         padding: dp(16)
         spacing: dp(16)
+        canvas.before:
+            Color:
+                rgba: 0.95, 0.95, 0.98, 1  # same as MainScreen background
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
 
         Label:
             id: exercise_label
@@ -591,6 +566,190 @@
             color: 0, 0, 0, 1
             size_hint_y: None
             height: self.texture_size[1]
+
+        BoxLayout:
+            id: images_container
+            orientation: 'vertical'
+            size_hint_y: None
+            height: dp(480)  # 3 images * 150dp each + spacing
+            spacing: dp(16)
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(16)
+            size_hint_y: None
+            height: dp(150)
+            padding: dp(8)
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(12)]
+                Color:
+                    rgba: 0, 0, 0, 0.05
+                Rectangle:
+                    pos: self.pos[0], self.pos[1] - dp(4)
+                    size: self.size[0], dp(6)
+
+            Image:
+                id: workout_image_1
+                size_hint: None, None
+                size: dp(134), dp(134)
+                allow_stretch: True
+                keep_ratio: True
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(12)]
+
+            Label:
+                id: reps_label_1
+                text: ""
+                font_size: '18sp'
+                color: 0.42, 0.46, 0.51, 1
+                valign: 'middle'
+                halign: 'left'
+                text_size: self.size
+                size_hint_y: None
+                height: dp(134)
+                padding_x: dp(8)
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(16)
+            size_hint_y: None
+            height: dp(150)
+            padding: dp(8)
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(12)]
+                Color:
+                    rgba: 0, 0, 0, 0.05
+                Rectangle:
+                    pos: self.pos[0], self.pos[1] - dp(4)
+                    size: self.size[0], dp(6)
+
+            Image:
+                id: workout_image_2
+                size_hint: None, None
+                size: dp(134), dp(134)
+                allow_stretch: True
+                keep_ratio: True
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(12)]
+
+            Label:
+                id: reps_label_2
+                text: ""
+                font_size: '18sp'
+                color: 0.42, 0.46, 0.51, 1
+                valign: 'middle'
+                halign: 'left'
+                text_size: self.size
+                size_hint_y: None
+                height: dp(134)
+                padding_x: dp(8)
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(16)
+            size_hint_y: None
+            height: dp(150)
+            padding: dp(8)
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(12)]
+                Color:
+                    rgba: 0, 0, 0, 0.05
+                Rectangle:
+                    pos: self.pos[0], self.pos[1] - dp(4)
+                    size: self.size[0], dp(6)
+
+            Image:
+                id: workout_image_3
+                size_hint: None, None
+                size: dp(134), dp(134)
+                allow_stretch: True
+                keep_ratio: True
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [dp(12)]
+
+            Label:
+                id: reps_label_3
+                text: ""
+                font_size: '18sp'
+                color: 0.42, 0.46, 0.51, 1
+                valign: 'middle'
+                halign: 'left'
+                text_size: self.size
+                size_hint_y: None
+                height: dp(134)
+                padding_x: dp(8)
+
+        BoxLayout:
+            id: timer_container
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: dp(60)
+            spacing: dp(16)
+            padding: [dp(12), dp(8), dp(12), dp(8)]
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(12)]
+
+            Label:
+                id: timer_label
+                text: "15:00"
+                font_size: '36sp'
+                bold: True
+                color: 0.15, 0.5, 0.9, 1
+                size_hint_x: 0.4
+                halign: 'center'
+                valign: 'middle'
+                text_size: self.size
+
+            Button:
+                text: "Start Timer"
+                font_size: '16sp'
+                size_hint_x: 0.3
+                background_color: 0.2, 0.6, 0.86, 0
+                color: 0, 0, 1, 1
+                on_release: root.start_timer()
+
+            Button:
+                text: "Pause Timer"
+                font_size: '16sp'
+                size_hint_x: 0.3
+                background_color: 0.6, 0.6, 0.6, 0
+                color: 1, 0, 0, 1
+                on_release: root.pause_timer()
 
         Button:
             text: "Complete Exercise"
